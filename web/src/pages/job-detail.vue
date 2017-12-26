@@ -130,7 +130,7 @@
         },
         methods: {
             getJobData() {
-                this.$http.get('/api/jobDetail?jobId=' + this.$route.params.id).then(res => {
+                this.$http.get(SERVER_BASE + '/jobDetail?jobId=' + this.$route.params.id).then(res => {
                     if (res.status == 200 && res.data.status == 0) {
                         this.jobData = res.data.result;
                         this.config = Object.assign(this.config, res.data.result.config);
@@ -138,7 +138,7 @@
                 })
             },
             getJobHistory() {
-                this.$http.get('/api/jobHistory?jobId=' + this.$route.params.id).then(res => {
+                this.$http.get(SERVER_BASE + '/jobHistory?jobId=' + this.$route.params.id).then(res => {
                     if (res.status == 200 && res.data.status == 0) {
                         this.jobHistory = res.data.result;
                     }
@@ -148,7 +148,7 @@
                 this.$router.push('/job-result/' + scope.row._id);
             },
             saveConfig() {
-                this.$http.post('/api/saveConfig', {
+                this.$http.post(SERVER_BASE + '/saveConfig', {
                     jobId: this.$route.params.id,
                     config: this.config
                 }).then(res => {
@@ -167,7 +167,7 @@
                 })
             },
             stopJob() {
-                this.$http.post('/api/stopChromeTarget', {
+                this.$http.post(SERVER_BASE + '/stopChromeTarget', {
                     jobId: this.$route.params.id
                 }).then(res => {
                     this.jobRunning = false;
@@ -193,7 +193,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$http.post('/api/delJob', {
+                    this.$http.post(SERVER_BASE + '/delJob', {
                         jobId: this.$route.params.id
                     }).then(res => {
                         if (res.status == 200 && res.data.status == 0) {
@@ -219,7 +219,7 @@
                 })
 
                 function __runJob() {
-                    this.$http.post('/api/runJob', {
+                    this.$http.post(SERVER_BASE + '/runJob', {
                         jobId: this.$route.params.id,
                         actionList: this.jobData.actionList
                     }).then(res => {
@@ -248,7 +248,7 @@
                 }
                 if (this.config.isRunChromeAction) {
                     this.chromeLoading = true;
-                    this.$http.get('/api/chromeTarget?jobId=' + this.$route.params.id).then(res => {
+                    this.$http.get(SERVER_BASE + '/chromeTarget?jobId=' + this.$route.params.id).then(res => {
                         if (res.status == 200 && res.data.status == 0) {
                             let {
                                 targetId

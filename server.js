@@ -4,9 +4,7 @@ const Router = require('koa-router');
 const cors = require('koa-cors');
 const json = require('koa-json')
 const bodyParser = require('koa-bodyparser');
-const request = require('request');
 const StaticServer = require('koa-static-server');
-const url = require('url');
 const socket = require('socket.io')
 const httpProxy = require('http-proxy');
 global.Promise = require('bluebird');
@@ -15,7 +13,6 @@ const DBSchema = require('./common/db-schema');
 const {
     logUtil
 } = require('./common/util');
-
 const {
     runJob
 } = require('./job/run-job');
@@ -65,6 +62,17 @@ app.use(async(ctx, next) => {
         ctx.app.emit('error', err, ctx);
     }
 })
+
+//防止 ECONNRESET error
+const asyncMiddleware = (handler) => {
+    return (req, socket, head) => {
+        Promise.resolve(handler(req, socket, head))
+            .catch((error) => {
+                logUtil.error(error);
+                socket.end();
+            });
+    }
+}
 
 app.use(async(ctx, next) => {
     // the parsed body will store in ctx.request.body
@@ -274,7 +282,7 @@ app
     .use(router.allowedMethods());
 
 server.listen(3000)
-server.on('upgrade', async(req, socket, head) => {
+server.on('upgrade', asyncMiddleware(async(req, socket, head) => {
     if (mainBrowser) {
         logUtil.log('http upgrade', req.url, mainBrowser.wsEndpoint());
         const port = url.parse(mainBrowser.wsEndpoint()).port;
@@ -283,7 +291,7 @@ server.on('upgrade', async(req, socket, head) => {
             target: `ws://127.0.0.1:${port}`
         })
     }
-})
+}))
 
 process.on('exit', (code) => {
     mainBrowser && mainBrowser.close();

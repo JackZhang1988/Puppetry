@@ -111,7 +111,7 @@
     Vue.filter('getImgLink', function (value) {
         if (!value) return ''
         value = value.toString().slice(1);
-        return STATICBASE + value;
+        return SERVER_BASE + value;
     })
     export default {
         data() {
@@ -133,7 +133,7 @@
                 console.log(scope);
             },
             getJobHistory() {
-                this.$http.get('/api/jobResult?id=' + this.$route.params.id).then(res => {
+                this.$http.get(SERVER_BASE + '/jobResult?id=' + this.$route.params.id).then(res => {
                     this.loading = false;
                     if (res.status == 200 && res.data.status == 0) {
                         this.jobHistory = res.data.result;

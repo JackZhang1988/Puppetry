@@ -44,8 +44,8 @@ module.exports = (options = {}) => ({
   },
   plugins: [
     new webpack.DefinePlugin({
-      STATICBASE: JSON.stringify(envConfig[env]["staticBase"]),
-      DOMAIN: JSON.stringify(envConfig[env]["domain"]),
+      SERVER_BASE: JSON.stringify(envConfig[env]["SERVER_BASE"]),
+      DOMAIN: JSON.stringify(envConfig[env]["DOMAIN"]),
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
@@ -62,15 +62,6 @@ module.exports = (options = {}) => ({
   devServer: {
     host: '0.0.0.0',
     port: 3001,
-    proxy: {
-      '/api/': {
-        target: 'http://127.0.0.1:3000',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    },
     historyApiFallback: {
       index: url.parse(options.dev ? '/assets/' : publicPath).pathname
     }

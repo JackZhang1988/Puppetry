@@ -62,7 +62,7 @@
                 this.checkActionData();
             },
             getJobData() {
-                this.$http.get('/api/jobDetail?jobId=' + this.$route.params.id).then(res => {
+                this.$http.get(SERVER_BASE + '/jobDetail?jobId=' + this.$route.params.id).then(res => {
                     if (res.status == 200 && res.data.status == 0) {
                         let result = res.data.result;
                         this.jobTitle = result.jobTitle;
@@ -103,7 +103,7 @@
                 console.log(this.actionList);
                 // return;
                 if (this.jobTitle && this.jobDesc && this.actionList.length) {
-                    this.$http.post('/api/saveJob', {
+                    this.$http.post(SERVER_BASE + '/saveJob', {
                         jobId: this.$route.params.id,
                         jobTitle: this.jobTitle,
                         jobDesc: this.jobDesc,

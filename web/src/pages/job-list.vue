@@ -38,7 +38,7 @@
                 this.$router.push(`/job-detail/${item._id}`)
             },
             getAllAutoTestjob() {
-                this.$http.get('/api/jobs').then(res => {
+                this.$http.get(SERVER_BASE + '/jobs').then(res => {
                     if (res.status == 200 && res.data.status == 0) {
                         this.jobList = res.data.result;
                     }
