@@ -57,6 +57,9 @@ Vue.use(VueRouter)
   .prototype.$http = axios
 
 const routes = [{
+  path: '/',
+  component: JobList
+}, {
   path: '/job-list',
   component: JobList
 }, {

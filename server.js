@@ -6,6 +6,7 @@ const json = require('koa-json')
 const bodyParser = require('koa-bodyparser');
 const StaticServer = require('koa-static-server');
 const socket = require('socket.io')
+const url = require('url');
 const httpProxy = require('http-proxy');
 global.Promise = require('bluebird');
 
@@ -52,6 +53,7 @@ app.use(StaticServer({
     rootDir: './job-result',
     rootPath: '/job-result'
 }))
+
 app.use(async(ctx, next) => {
     try {
         await next();
@@ -68,7 +70,7 @@ const asyncMiddleware = (handler) => {
     return (req, socket, head) => {
         Promise.resolve(handler(req, socket, head))
             .catch((error) => {
-                logUtil.error(error);
+                logUtil.error('socket upgrade error', error);
                 socket.end();
             });
     }
@@ -82,10 +84,6 @@ app.use(async(ctx, next) => {
 });
 let jobStatus = {};
 router
-    .get('/', (ctx, next) => {
-        ctx.body = 'Welcome Puppetry Show';
-        next();
-    })
     .get('/jobs', async(ctx, next) => {
         let result = await DBSchema.Job.find({});
         ctx.body = {
@@ -279,8 +277,11 @@ router
 
 app
     .use(router.routes())
-    .use(router.allowedMethods());
-
+    .use(router.allowedMethods())
+    .use(StaticServer({
+        rootDir: './web/dist',
+        rootPath: '/'
+    }))
 server.listen(3000)
 server.on('upgrade', asyncMiddleware(async(req, socket, head) => {
     if (mainBrowser) {

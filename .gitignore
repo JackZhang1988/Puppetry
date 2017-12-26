@@ -4,7 +4,6 @@ db/
 logs/
 dump.rdb
 web/node_modules/
-web/dist/
 job-result/*
 schema.json
 
