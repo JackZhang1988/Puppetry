@@ -9,6 +9,7 @@ const StaticServer = require('koa-static-server');
 const url = require('url');
 const socket = require('socket.io')
 const httpProxy = require('http-proxy');
+global.Promise = require('bluebird');
 
 const DBSchema = require('./common/db-schema');
 const {

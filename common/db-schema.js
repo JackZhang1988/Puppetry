@@ -1,12 +1,13 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/puppetry', {
+const mongoose = require('mongoose');
+const config = require('./config');
+mongoose.connect(`mongodb://${config.DBURL}`, {
     useMongoClient: true
 });
 
 // Use native promises
 mongoose.Promise = global.Promise;
 
-var JobSchema = mongoose.model('Job', new mongoose.Schema({
+let JobSchema = mongoose.model('Job', new mongoose.Schema({
     jobTitle: String,
     jobDesc: String,
     config: mongoose.Schema.Types.Mixed,
@@ -15,7 +16,7 @@ var JobSchema = mongoose.model('Job', new mongoose.Schema({
         required: true
     }
 }))
-var JobResultSchema = mongoose.model('JobResult', new mongoose.Schema({
+let JobResultSchema = mongoose.model('JobResult', new mongoose.Schema({
     jobId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Job'

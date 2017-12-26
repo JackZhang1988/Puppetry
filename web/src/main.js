@@ -51,7 +51,7 @@ Vue.use(VueCodemirror, {
   }
 })
 
-Vue.use(VueSocketio, 'http://localhost:3000');
+Vue.use(VueSocketio, `http://${DOMAIN}`);
 Vue.use(ElementUI)
 Vue.use(VueRouter)
   .prototype.$http = axios
