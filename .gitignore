@@ -1,0 +1,12 @@
+node_modules/
+uploads/
+db/
+logs/
+dump.rdb
+web/node_modules/
+web/dist/
+job-result/*
+schema.json
+
+!**/.gitkeep
+npm-debug.log
