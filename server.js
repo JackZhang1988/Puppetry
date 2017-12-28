@@ -287,14 +287,15 @@ server.on('upgrade', asyncMiddleware(async(req, socket, head) => {
     if (mainBrowser) {
         logUtil.log('http upgrade', req.url, mainBrowser.wsEndpoint());
         const port = url.parse(mainBrowser.wsEndpoint()).port;
-
         proxy.ws(req, socket, head, {
             target: `ws://127.0.0.1:${port}`
         })
     }
 }))
-
+proxy.on('error', (err, req, res) => {
+    return;
+})
 process.on('exit', (code) => {
     mainBrowser && mainBrowser.close();
-    console.log(`About to exit with code: ${code}`);
+    console.log(`server exit`);
 });
