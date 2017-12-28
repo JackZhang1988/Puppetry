@@ -4,6 +4,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueSocketio from 'vue-socket.io';
 import axios from 'axios'
+import VueCodemirror from 'vue-codemirror'
 
 import App from './App.vue'
 import JobList from './pages/job-list.vue'
@@ -19,7 +20,7 @@ import Loop from './components/loop-action.vue';
 import Cookie from './components/cookie-action.vue';
 import PuppeteerPage from './components/puppeteer-action.vue';
 import Code from './components/code-action.vue';
-import VueCodemirror from 'vue-codemirror'
+import PagePerformance from './components/performance-action.vue';
 
 // require codemirror styles
 import 'codemirror/lib/codemirror.css'
@@ -36,6 +37,8 @@ Vue.component('Loop', Loop)
 Vue.component('PuppeteerPage', PuppeteerPage)
 Vue.component('Cookie', Cookie)
 Vue.component('CodeScript', Code)
+Vue.component('PagePerformance', PagePerformance);
+
 Vue.use(VueCodemirror, {
   options: {
     mode: {

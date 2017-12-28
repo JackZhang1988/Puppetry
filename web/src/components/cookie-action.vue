@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card action-item deley">
+    <el-card class="box-card action-item cookie">
         <div slot="header" class="clearfix">
             <span>Cookie操作</span>
             <slot name="action" :data="data"></slot>

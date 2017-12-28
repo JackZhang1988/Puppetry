@@ -53,7 +53,7 @@
                     </el-form-item>
                     <el-form-item label="页面检测配置">
                         <el-checkbox v-model="config.checkPageError">是否检测pageerror</el-checkbox>
-                        <el-checkbox v-model="config.checkPageSpeed">是否检测pagespeed</el-checkbox>
+                        <!-- <el-checkbox v-model="config.checkPageSpeed">是否检测pagespeed</el-checkbox> -->
                     </el-form-item>
                     <el-form-item label="diff missmatch阈值">
                         <el-col :span="4">
@@ -109,8 +109,7 @@
                     isOpenNewWindow: false,
                     width: 414,
                     height: 736,
-                    checkPageError: true,
-                    checkPageSpeed: false
+                    checkPageError: true
                 },
             }
         },

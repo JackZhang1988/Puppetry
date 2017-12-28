@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card action-item deley">
+    <el-card class="box-card action-item gourl">
         <div slot="header" class="clearfix">
             <span>添加验证URL</span>
             <slot name="action" :data="data"></slot>

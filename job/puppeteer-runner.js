@@ -140,8 +140,13 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
     async function timeout(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     };
+    async function getPerformance() {
+        const timing = await page.evaluate(() => {
+            return window.performance.timing;
+        });
+    }
 
-    async function runActionList(actionList) {
+    async function runActionList(actionList, jobData) {
         for (let i = 0; i < actionList.length; i++) {
             let data = actionList[i].data;
             let name = actionList[i].name;
@@ -151,6 +156,7 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
                     await page.goto(`${data.urlInput}`);
                     logInfo = `${data.urlInput}`;
                     logAction(logInfo, 'gourl')
+
                     break;
                 case 'delay':
                     await timeout(data.delayTime);
@@ -224,26 +230,14 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
                         }
                         return result;
                     });
-                    // logUtil.debug("actionParams: " + actionParams);
                     logInfo = `await page.${actionType}(${isStringParam?'"':''}${data.actionParams.join(',')}${isStringParam?'"':''})`;
                     logAction(logInfo, 'puppeteer-page')
                     try {
-                        // switch (actionType) {
-                        //     case 'click':
-                        //         await page.click(actionParams[0]);
-                        //         break;
-                        //     case 'waitForNavigation':
-                        //         await page.waitForNavigation(actionParams[0]);
-                        //     default:
-                        //         await page[actionType](...actionParams);
-                        //         break;
-                        // }
                         await page[actionType](...actionParams);
                     } catch (error) {
                         logUtil.error('puppeteer-page action error', error);
                         return;
                     }
-                    // eval('await '+ actionStr);
                     break;
                 case 'cookie':
                     let cookieAdd = data.cookieAdd;
@@ -289,6 +283,15 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
                         logUtil.error(error);
                     }
                     break;
+                case 'page-performance':
+                    const timing = await page.evaluate(() => {
+                        const result = {};
+                        for (const key of Object.keys(window.performance.timing.__proto__))
+                            result[key] = window.performance.timing[key];
+                        return result;
+                    });
+                    logAction(timing, 'Performance');
+                    break;
                 default:
                     break;
             }
@@ -309,9 +312,8 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
             logAction(`页面报错 : ${error}`, 'pageerror');
         })
     }
-
     try {
-        await runActionList(preInitAcList(acList));
+        await runActionList(preInitAcList(acList), jobData);
     } catch (error) {
         logUtil.error('puppeteer run error: ', error);
     } finally {

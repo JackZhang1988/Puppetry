@@ -1,5 +1,5 @@
 <template>
-    <el-card class="action-item screenshot box-card">
+    <el-card class="action-item screendiff box-card">
         <div slot="header" class="clearfix">
             <span>快照diff操作（请添加生成图片引用的job id）</span>
             <slot name="action" :data="data"></slot>

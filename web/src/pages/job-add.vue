@@ -24,9 +24,10 @@
                 <el-option label="屏幕快照" value="screenshot"></el-option>
                 <el-option label="快照对比" value="screendiff"></el-option>
                 <el-option label="设置&删除Cookie" value="cookie"></el-option>
+                <el-option label="Page Performance" value="page-performance"></el-option>
                 <el-option label="Puppteer Page操作" value="puppeteer-page"></el-option>
-                <el-option label="循环action" value="loop"></el-option>
                 <el-option label="js code" value="code-script"></el-option>
+                <el-option label="循环action" value="loop"></el-option>
             </el-select>
         </div>
 

@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card action-item deley">
+    <el-card class="box-card action-item code">
         <div slot="header" class="clearfix">
             <span>添加js code</span>
             <slot name="action" :data="data"></slot>

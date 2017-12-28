@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card action-item deley">
+    <el-card class="box-card action-item loop">
         <div slot="header" class="clearfix">
             <span>循环action</span>
             <slot name="action" :data="data"></slot>

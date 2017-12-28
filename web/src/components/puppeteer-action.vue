@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card action-item deley">
+    <el-card class="box-card action-item puppeteer">
         <div slot="header" class="clearfix">
             <span>添加puppeteer page操作</span>
             <slot name="action" :data="data"></slot>
