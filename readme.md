@@ -2,7 +2,7 @@
 网页End2End测试GUI工具
 
 #### 示例:  
-
+![demo](http://okyb0e40i.bkt.clouddn.com/puppetry-ops.gif)
 
 ### 特性
 - 无需编写代码模拟浏览器行为

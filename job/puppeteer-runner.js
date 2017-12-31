@@ -290,7 +290,7 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
                             result[key] = window.performance.timing[key];
                         return result;
                     });
-                    logAction(timing, 'Performance');
+                    logAction(timing, 'page-performance');
                     break;
                 default:
                     break;

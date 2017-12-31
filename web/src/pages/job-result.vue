@@ -97,6 +97,42 @@
                                 </div>
                             </el-collapse-item>
                         </el-collapse>
+                        <p v-else-if="scope.row.type == 'page-performance'">
+                            <table>
+                                <tr>
+                                    <td>白屏时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>首屏时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>用户可交互时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>总下载时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>HTML下载时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>TCP连接时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>HTTP请求时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>HTTP响应时间</td>
+                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                </tr>
+                            </table>
+                        </p>
                         <p v-else>
                             {{scope.row.data}}
                         </p>
@@ -112,6 +148,15 @@
         if (!value) return ''
         value = value.toString().slice(1);
         return SERVER_BASE + value;
+    })
+    Vue.filter('getPerformance', function (timing, type) {
+        switch (type) {
+            case 'whiteScreen':
+                return timing.responseEnd - timing.fetchStart;
+                break;
+            default:
+                return ''
+        }
     })
     export default {
         data() {
@@ -129,7 +174,7 @@
 
         },
         methods: {
-            test(scope) {
+            getPerformance(scope) {
                 console.log(scope);
             },
             getJobHistory() {
