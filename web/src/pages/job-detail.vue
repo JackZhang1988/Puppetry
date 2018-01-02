@@ -52,17 +52,9 @@
                         </el-col>
                     </el-form-item>
                     <el-form-item label="页面检测配置">
-                        <el-checkbox v-model="config.checkPageError">是否检测pageerror</el-checkbox>
-                        <!-- <el-checkbox v-model="config.checkPageSpeed">是否检测pagespeed</el-checkbox> -->
+                        <el-checkbox v-model="config.checkPageError">是否检测Page Error</el-checkbox>
+                        <el-checkbox v-model="config.checkPageSpeed">是否检测Page Performance</el-checkbox>
                     </el-form-item>
-                    <el-form-item label="diff missmatch阈值">
-                        <el-col :span="4">
-                            <el-input v-model="config.missmatch">
-                                <template slot="append">%</template>
-                            </el-input>
-                        </el-col>
-                    </el-form-item>
-
                     <el-form-item>
                         <el-button type="primary" @click="saveConfig()">保存</el-button>
                     </el-form-item>

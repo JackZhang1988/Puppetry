@@ -98,38 +98,38 @@
                             </el-collapse-item>
                         </el-collapse>
                         <p v-else-if="scope.row.type == 'page-performance'">
-                            <table>
+                            <table class="perf-table">
                                 <tr>
                                     <td>白屏时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('whiteScreen')}}</td>
                                 </tr>
                                 <tr>
                                     <td>首屏时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('firstScreen')}}</td>
                                 </tr>
                                 <tr>
                                     <td>用户可交互时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('domReady')}}</td>
                                 </tr>
                                 <tr>
                                     <td>总下载时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('onLoad')}}</td>
                                 </tr>
                                 <tr>
                                     <td>HTML下载时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('dns')}}</td>
                                 </tr>
                                 <tr>
                                     <td>TCP连接时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('tcp')}}</td>
                                 </tr>
                                 <tr>
                                     <td>HTTP请求时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('httpRequest')}}</td>
                                 </tr>
                                 <tr>
                                     <td>HTTP响应时间</td>
-                                    <td>{{scope.row.data|getPerformance:''}}</td>
+                                    <td>{{scope.row.data | getPerformanceData('httpRespond')}}</td>
                                 </tr>
                             </table>
                         </p>
@@ -149,11 +149,26 @@
         value = value.toString().slice(1);
         return SERVER_BASE + value;
     })
-    Vue.filter('getPerformance', function (timing, type) {
+    Vue.filter('getPerformanceData', function (timing, type) {
         switch (type) {
             case 'whiteScreen':
-                return timing.responseEnd - timing.fetchStart;
+                return timing.responseEnd - timing.fetchStart + '毫秒';
                 break;
+            case 'firstScreen':
+                return timing.firstScreenTime ? (timing.firstScreenTime - timing.fetchStart + '毫秒') :
+                    '未找到firstScreenTime变量';
+            case 'domReady':
+                return timing.redirectEnd - timing.redirectStart + '毫秒';
+            case 'onLoad':
+                return timing.responseEnd - timing.requestStart + '毫秒';
+            case 'dns':
+                return timing.domainLookupEnd - timing.domainLookupStart + '毫秒';
+            case 'tcp':
+                return timing.connectEnd - timing.connectStart + '毫秒';
+            case 'httpRequest':
+                return timing.responseEnd - timing.requestStart + '毫秒';
+            case 'httpRespond':
+                return timing.responseStart - timing.navigationStart + '毫秒';
             default:
                 return ''
         }
@@ -174,9 +189,6 @@
 
         },
         methods: {
-            getPerformance(scope) {
-                console.log(scope);
-            },
             getJobHistory() {
                 this.$http.get(SERVER_BASE + '/jobResult?id=' + this.$route.params.id).then(res => {
                     this.loading = false;
@@ -234,4 +246,10 @@
         font-weight: bold;
         color: #2196F3;
     }
+
+    .perf-table {
+        width: 100%;
+    }
+
+    .perf-table tr {}
 </style>

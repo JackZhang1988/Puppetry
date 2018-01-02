@@ -286,8 +286,12 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
                 case 'page-performance':
                     const timing = await page.evaluate(() => {
                         const result = {};
-                        for (const key of Object.keys(window.performance.timing.__proto__))
+                        for (const key of Object.keys(window.performance.timing.__proto__)) {
                             result[key] = window.performance.timing[key];
+                        }
+                        if (window.firstScreenTime) {
+                            result['firstScreenTime'] = window.firstScreenTime;
+                        }
                         return result;
                     });
                     logAction(timing, 'page-performance');
