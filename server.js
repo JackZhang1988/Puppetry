@@ -293,6 +293,7 @@ server.on('upgrade', asyncMiddleware(async(req, socket, head) => {
     }
 }))
 proxy.on('error', (err, req, res) => {
+    // logUtil.error(err);
     return;
 })
 process.on('exit', (code) => {

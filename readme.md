@@ -44,5 +44,7 @@ cd ./web
 npm run build
 ```
 
+* chrome实时预览需要确保（https://chrome-devtools-frontend.appspot.com/）域名可以正常打开，可能需要翻墙访问
+
 ## License
 MIT License
