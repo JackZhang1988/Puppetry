@@ -1,5 +1,5 @@
 # Puppetry
-网页End2End测试GUI工具
+针对不熟悉前端页面自动化测试的人开发的GUI工具，可以快速完成页面的行为模拟，基于puppeteer框架，完全兼容puppeteer页面操作功能，并且集成了自动化测试常用的功能，比如页面截图diff、page error、page performance检测等功能。
 
 #### 示例:  
 ![demo](http://okyb0e40i.bkt.clouddn.com/puppetry-ops.gif)
@@ -13,7 +13,7 @@
 ### 使用方法
 安装Mongodb
 
-在common/config.js中配置mongodb数据库（默认已配置好）
+在common/config.js中配置mongodb数据库（默认已配置为localhost/puppetry）
 
 安装node_module 
 ``` 
@@ -44,7 +44,13 @@ cd ./web
 npm run build
 ```
 
-* chrome实时预览需要确保（https://chrome-devtools-frontend.appspot.com/）域名可以正常打开，可能需要翻墙访问
+* chrome实时预览需要确保 https://chrome-devtools-frontend.appspot.com 域名可以正常打开(可能需要翻墙访问)
+
+### 技术栈：
+- [Puppeteer](https://github.com/GoogleChrome/puppeteer)
+- [ElementUI](http://element.eleme.io/)
+- [Koa](http://koajs.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## License
 MIT License
