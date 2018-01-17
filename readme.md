@@ -41,7 +41,7 @@ npm run dev
 ```
 cd ./web
 //更新在web/env.js中pro环境变量
-npm run build
+export ENV=pro;npm run build
 ```
 
 * chrome实时预览需要确保 https://chrome-devtools-frontend.appspot.com 域名可以正常打开(可能需要翻墙访问)
