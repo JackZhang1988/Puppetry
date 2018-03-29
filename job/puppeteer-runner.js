@@ -250,7 +250,7 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
                                 return {
                                     name: value[0].trim(),
                                     value: value[1].trim(),
-                                    domain: data.domain || 'weidian.com',
+                                    domain: data.domain,
                                     path: data.path || '/'
                                 }
                             })
@@ -321,7 +321,7 @@ let runPuppeteer = async function (jobData, jobFolderPath, io) {
     } catch (error) {
         logUtil.error('puppeteer run error: ', error);
     } finally {
-        browser.close();
+        // browser.close();
         //浏览器关闭制空该job下browser实例
         jobBrowsers[jobData._id] = null;
         return result;

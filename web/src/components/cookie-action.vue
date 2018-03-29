@@ -12,7 +12,7 @@
 
         </el-input>
         <el-input class="sub-input" v-model="data.path" placeholder="输入path（默认'/'）" type="text"></el-input>
-        <el-input class="sub-input" v-model="data.domain" placeholder="输入domain (默认 weidian.com)" type="text"></el-input>
+        <el-input class="sub-input" v-model="data.domain" placeholder="输入domain" type="text"></el-input>
         <el-input class="sub-input" v-model="data.expire" placeholder="输入过期时间" type="text"></el-input>
     </el-card>
 </template>
