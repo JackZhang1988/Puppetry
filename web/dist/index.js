@@ -16543,7 +16543,7 @@ Array.prototype.move = function (from, to) {
             this.checkActionData();
         },
         getJobData() {
-            this.$http.get("http://localhost:3000" + '/jobDetail?jobId=' + this.$route.params.id).then(res => {
+            this.$http.get("http://localhost:3000/api" + '/jobDetail?jobId=' + this.$route.params.id).then(res => {
                 if (res.status == 200 && res.data.status == 0) {
                     let result = res.data.result;
                     this.jobTitle = result.jobTitle;
@@ -16584,7 +16584,7 @@ Array.prototype.move = function (from, to) {
             console.log(this.actionList);
             // return;
             if (this.jobTitle && this.jobDesc && this.actionList.length) {
-                this.$http.post("http://localhost:3000" + '/saveJob', {
+                this.$http.post("http://localhost:3000/api" + '/saveJob', {
                     jobId: this.$route.params.id,
                     jobTitle: this.jobTitle,
                     jobDesc: this.jobDesc,
@@ -16743,7 +16743,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
     },
     methods: {
         getJobData() {
-            this.$http.get("http://localhost:3000" + '/jobDetail?jobId=' + this.$route.params.id).then(res => {
+            this.$http.get("http://localhost:3000/api" + '/jobDetail?jobId=' + this.$route.params.id).then(res => {
                 if (res.status == 200 && res.data.status == 0) {
                     this.jobData = res.data.result;
                     this.config = Object.assign(this.config, res.data.result.config);
@@ -16751,7 +16751,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
             });
         },
         getJobHistory() {
-            this.$http.get("http://localhost:3000" + '/jobHistory?jobId=' + this.$route.params.id).then(res => {
+            this.$http.get("http://localhost:3000/api" + '/jobHistory?jobId=' + this.$route.params.id).then(res => {
                 if (res.status == 200 && res.data.status == 0) {
                     this.jobHistory = res.data.result;
                 }
@@ -16761,7 +16761,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
             this.$router.push('/job-result/' + scope.row._id);
         },
         saveConfig() {
-            this.$http.post("http://localhost:3000" + '/saveConfig', {
+            this.$http.post("http://localhost:3000/api" + '/saveConfig', {
                 jobId: this.$route.params.id,
                 config: this.config
             }).then(res => {
@@ -16780,7 +16780,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
             });
         },
         stopJob() {
-            this.$http.post("http://localhost:3000" + '/stopChromeTarget', {
+            this.$http.post("http://localhost:3000/api" + '/stopChromeTarget', {
                 jobId: this.$route.params.id
             }).then(res => {
                 this.jobRunning = false;
@@ -16806,7 +16806,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.$http.post("http://localhost:3000" + '/delJob', {
+                this.$http.post("http://localhost:3000/api" + '/delJob', {
                     jobId: this.$route.params.id
                 }).then(res => {
                     if (res.status == 200 && res.data.status == 0) {
@@ -16832,7 +16832,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
             });
 
             function __runJob() {
-                this.$http.post("http://localhost:3000" + '/runJob', {
+                this.$http.post("http://localhost:3000/api" + '/runJob', {
                     jobId: this.$route.params.id,
                     actionList: this.jobData.actionList
                 }).then(res => {
@@ -16861,7 +16861,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
             }
             if (this.config.isRunChromeAction) {
                 this.chromeLoading = true;
-                this.$http.get("http://localhost:3000" + '/chromeTarget?jobId=' + this.$route.params.id).then(res => {
+                this.$http.get("http://localhost:3000/api" + '/chromeTarget?jobId=' + this.$route.params.id).then(res => {
                     if (res.status == 200 && res.data.status == 0) {
                         let {
                             targetId
@@ -16929,7 +16929,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
             this.$router.push(`/job-detail/${item._id}`);
         },
         getAllAutoTestjob() {
-            this.$http.get("http://localhost:3000" + '/jobs').then(res => {
+            this.$http.get("http://localhost:3000/api" + '/jobs').then(res => {
                 if (res.status == 200 && res.data.status == 0) {
                     this.jobList = res.data.result;
                 }
@@ -17093,7 +17093,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('dateFormate', function (dat
 __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('getImgLink', function (value) {
     if (!value) return '';
     value = value.toString().slice(1);
-    return "http://localhost:3000" + value;
+    return "http://localhost:3000/api" + value;
 });
 __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('getPerformanceData', function (timing, type) {
     switch (type) {
@@ -17133,7 +17133,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].filter('getPerformanceData', functi
     checkFile(path) {},
     methods: {
         getJobHistory() {
-            this.$http.get("http://localhost:3000" + '/jobResult?id=' + this.$route.params.id).then(res => {
+            this.$http.get("http://localhost:3000/api" + '/jobResult?id=' + this.$route.params.id).then(res => {
                 this.loading = false;
                 if (res.status == 200 && res.data.status == 0) {
                     this.jobHistory = res.data.result;
@@ -19867,7 +19867,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
   }), _vm._v(" "), _c('el-input', {
     staticClass: "sub-input",
     attrs: {
-      "placeholder": "输入domain (默认 weidian.com)",
+      "placeholder": "输入domain",
       "type": "text"
     },
     model: {
@@ -21029,4 +21029,4 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ })
 ],[157]);
-//# sourceMappingURL=index.js.map?dd1e9a5ec808833f8023
+//# sourceMappingURL=index.js.map?b867a0338cffb9fa753a

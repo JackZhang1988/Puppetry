@@ -22,8 +22,6 @@ const {
     stopBrowser
 } = require('./job/puppeteer-runner');
 
-const fs = require('fs');
-
 const app = new Koa();
 const router = new Router();
 
@@ -76,14 +74,17 @@ const asyncMiddleware = (handler) => {
     }
 }
 
-app.use(async(ctx, next) => {
-    // the parsed body will store in ctx.request.body
-    // if nothing was parsed, body will be an empty object {}
-    ctx.body = ctx.request.body;
-    await next();
-});
+// app.use(async(ctx, next) => {
+//     // the parsed body will store in ctx.request.body
+//     // if nothing was parsed, body will be an empty object {}
+//     ctx.body = ctx.request.body;
+//     await next();
+// });
 let jobStatus = {};
-router
+
+let apiRouter = new Router();
+
+apiRouter
     .get('/jobs', async(ctx, next) => {
         let result = await DBSchema.Job.find({});
         ctx.body = {
@@ -275,6 +276,8 @@ router
         }
     })
 
+router.use('/api', apiRouter.routes(), apiRouter.allowedMethods());
+
 app
     .use(router.routes())
     .use(router.allowedMethods())
@@ -282,7 +285,7 @@ app
         rootDir: './web/dist',
         rootPath: '/'
     }))
-server.listen(3000)
+app.listen(3000)
 server.on('upgrade', asyncMiddleware(async(req, socket, head) => {
     if (mainBrowser) {
         logUtil.log('http upgrade', req.url, mainBrowser.wsEndpoint());

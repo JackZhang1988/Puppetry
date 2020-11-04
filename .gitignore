@@ -7,5 +7,7 @@ web/node_modules/
 job-result/*
 schema.json
 
+dist/
+
 !**/.gitkeep
 npm-debug.log

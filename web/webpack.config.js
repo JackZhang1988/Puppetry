@@ -64,6 +64,11 @@ module.exports = (options = {}) => ({
     port: 3001,
     historyApiFallback: {
       index: url.parse(options.dev ? '/assets/' : publicPath).pathname
+    },
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000'
+      },
     }
   },
   devtool: options.dev ? '#eval-source-map' : '#source-map'
