@@ -49,7 +49,7 @@ app.use(json());
 app.use(bodyParser());
 app.use(StaticServer({
     rootDir: './job-result',
-    rootPath: '/job-result'
+    rootPath: '/api/job-result'
 }))
 
 app.use(async(ctx, next) => {
