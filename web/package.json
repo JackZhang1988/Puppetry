@@ -15,7 +15,7 @@
     "vue-codemirror": "^4.0.2",
     "vue-json-editor": "^1.2.0",
     "vue-router": "^2.7.0",
-    "vue-socket.io": "^2.1.1-a"
+    "vue-socket.io": "^3.0.10"
   },
   "engines": {
     "node": ">=6"
